@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Welcome to Firebase Hosting</title>
+    <title>Calculator</title>
 
     <!-- update the version number as needed -->
     <script defer src="/__/firebase/5.5.8/firebase-app.js"></script>
@@ -15,30 +15,159 @@
     <!-- initialize the SDK after all desired features are loaded -->
     <script defer src="/__/firebase/init.js"></script>
 
+    <link href="https://fonts.googleapis.com/css?family=Product+Sans" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
     <style media="screen">
-      body { background: #ECEFF1; color: rgba(0,0,0,0.87); font-family: Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
-      #message { background: white; max-width: 360px; margin: 100px auto 16px; padding: 32px 24px; border-radius: 3px; }
-      #message h2 { color: #ffa100; font-weight: bold; font-size: 16px; margin: 0 0 8px; }
-      #message h1 { font-size: 22px; font-weight: 300; color: rgba(0,0,0,0.6); margin: 0 0 16px;}
-      #message p { line-height: 140%; margin: 16px 0 24px; font-size: 14px; }
-      #message a { display: block; text-align: center; background: #039be5; text-transform: uppercase; text-decoration: none; color: white; padding: 16px; border-radius: 4px; }
-      #message, #message a { box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); }
-      #load { color: rgba(0,0,0,0.4); text-align: center; font-size: 13px; }
-      @media (max-width: 600px) {
-        body, #message { margin-top: 0; background: white; box-shadow: none; }
-        body { border-top: 16px solid #ffa100; }
+      html {
+        width: 100%;
+        height: 100%;
+      }
+      
+      body {
+        width: 100%;
+        height: 100%;
+        background-color: #000;
+        color: #fff;
+        font-family: 'Product Sans', sans-serif;
+        margin: 0;
+        padding: 0;
+      }
+      
+      #main {
+          display: grid;
+          width: 100%;
+          height: 100%;
+          grid-template-rows: 48px calc(4rem + 3.25rem + 5px) 5fr;
+          grid-template-areas:
+            "header"
+            "display"
+            "buttons";
+      }
+      
+      #header {
+      	grid-area: header;
+      }
+      
+      #display {
+      	grid-area: display;
+        grid-template-rows: 1fr 2fr;
+        grid-template-areas:
+          "formula"
+          "preview";
+      	overflow-x: scroll;
+      	text-align: right;
+      	border-bottom: 1px solid #bbb;
+      }
+      
+      #formula {
+      	grid-area: formula;
+      	line-height: 4rem;
+      	font-size: 3.5rem;
+      	color: #fff;
+      }
+      
+      #preview {
+      	grid-area: preview;
+      	line-height: 3.25rem;
+      	font-size: 2.75rem;
+      	color: #ccc;
+      }
+      
+      #buttons {
+      	grid-area: buttons;
+      	display: grid;
+      	grid-template-columns: repeat(3, 1fr);
+      	grid-template-areas:
+      	  "functions functions functions"
+      	  "functions functions functions"
+      	  "numbers   numbers   operators"
+      	  "numbers   numbers   operators"
+      	  "numbers   numbers   operators";
+      }
+      
+      #functions {
+      	grid-area: functions;
+      	display: grid;
+      	grid-template-columns: repeat(5, 1fr);
+      	color: #f2f2f2;
+      	border-bottom: 1px solid #bbb;
+      }
+      
+      #numbers {
+      	grid-area: numbers;
+      	display: grid;
+      	grid-template-columns: repeat(3, 1fr);
+      	border-right: 1px solid #bbb;	
+      }
+      
+      #operators {
+      	grid-area: operators;
+      	display: grid;
+      	grid-template-columns: repeat(2, 1fr);
+      	color: #4285f4;
+      }
+      
+      .button {
+      	font-size: 1.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
     </style>
   </head>
   <body>
-    <div id="message">
-      <h2>Welcome</h2>
-      <h1>Firebase Hosting Setup Complete</h1>
-      <p>You're seeing this because you've successfully setup Firebase Hosting. Now it's time to go build something extraordinary!</p>
-      <a target="_blank" href="https://firebase.google.com/docs/hosting/">Open Hosting Documentation</a>
+    <div id="main">
+      <div id="header">
+       header
+      </div>
+      <div id="display">
+        <div id="formula">1200+56</div>
+        <div id="preview">1256</div>
+      </div>
+      <div id="buttons">
+        <div id="functions">
+        	<div class="button">INV</div>
+        	<div class="button">DEG</div>
+        	<div class="button">sin</div>
+        	<div class="button">cos</div>
+        	<div class="button">tan</div>
+        	<div class="button">%</div>
+        	<div class="button">ln</div>
+        	<div class="button">log</div>
+        	<div class="button">sqrt</div>
+        	<div class="button">^</div>
+        	<div class="button">π</div>
+        	<div class="button">e</div>
+        	<div class="button">(</div>
+        	<div class="button">)</div>
+        	<div class="button">!</div>
+        </div>
+        <div id="numbers">
+        	<div class="button">7</div>
+        	<div class="button">8</div>
+        	<div class="button">9</div>
+        	<div class="button">4</div>
+        	<div class="button">5</div>
+        	<div class="button">6</div>
+        	<div class="button">1</div>
+        	<div class="button">2</div>
+        	<div class="button">3</div>
+        	<div class="button">0</div>
+        	<div class="button">.</div>
+        </div>
+        <div id="operators">
+        	<div class="button">÷</div>
+        	<div class="button"><i class="material-icons">backspace</i></div>
+        	<div class="button">×</div>
+        	<div class="button"></div>
+        	<div class="button">−</div>
+        	<div class="button"></div>
+        	<div class="button">+</div>
+        	<div class="button">=</div>
+        </div>
+      </div>
     </div>
-    <p id="load">Firebase SDK Loading&hellip;</p>
-
     <script>
       document.addEventListener('DOMContentLoaded', function() {
         // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
@@ -54,10 +183,8 @@
         try {
           let app = firebase.app();
           let features = ['auth', 'database', 'messaging', 'storage'].filter(feature => typeof app[feature] === 'function');
-          document.getElementById('load').innerHTML = `Firebase SDK loaded with ${features.join(', ')}`;
         } catch (e) {
-          console.error(e);
-          document.getElementById('load').innerHTML = 'Error loading the Firebase SDK, check the console.';
+          console.error(e);          
         }
       });
     </script>
